@@ -2,14 +2,14 @@ const { Router } = require("express");
 const router = Router();
 const booksCtrl = require("../controller/books.controller");
 
-router.get("/:id_user/books/:id_book", booksCtrl.getBookParams);
+router.get("/books/:id_user/:id_book", booksCtrl.getBookParams);
 
-router.get("/:id_user/books", booksCtrl.getBooks);
+router.get("/books/:id_user", booksCtrl.getBooks);
 
-router.post("/:id_user/books", booksCtrl.postBooks);
+router.post("/books/:id_user", booksCtrl.postBooks);
 
-router.put("/:id_user/books/:id_book", booksCtrl.putBooks);
+router.put("/books/:id_user/:id_book", booksCtrl.putBooks);
 
-router.delete("/:id_user/books/:id_book", booksCtrl.deleteBooks);
+router.delete("/books/:id_user/:id_book", booksCtrl.deleteBooks);
 
 module.exports = router;

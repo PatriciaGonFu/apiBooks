@@ -67,15 +67,17 @@ async function putBooks(request, response) {
 
 
 async function deleteBooks(request, response) {
-    const userId = request.params.id_user;
+    const userId = request.params.id_user; 
     const bookId = request.params.id_book;
-    try{
+    try {
         await pool.query('DELETE FROM book WHERE id_book = ? AND id_user = ?', [bookId, userId]);
-        response.send({error: false, codigo: 200, mensaje: 'Libro eliminado'});
-    } catch(error){
-        console.error('Error al eliminar el libro:', error)
+        response.send(true);
+    } catch (error) {
+        console.error('Error al eliminar el libro:', error);
+        response.send(false);
     }
 }
+
 
 
 
