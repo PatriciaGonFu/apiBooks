@@ -12,7 +12,7 @@ async function getBookParams(request, response)
     let userId = request.params.id_user;
     let bookId = request.params.id_book;
     try{
-        const book = await pool.query('SELECT * FROM book WHERE id_book = ? AND id_user = ?', [bookId, userId]);
+        const book = await pool.query('SELECT id_book, title, type, author, price, photo FROM book WHERE id_book = ? AND id_user = ?', [bookId, userId]);
             if (book.length > 0) {
             response.send(book[0]);
             } else {
@@ -43,10 +43,9 @@ async function getBooks(request, response) {
 
 
 async function postBooks(request, response) {
-    const userId = request.params.id_user;
     const newBook = request.body;
     try{
-        await pool.query('INSERT INTO book SET ?', { ...newBook, id_user: userId });
+        await pool.query('INSERT INTO book SET ?', { ...newBook});
         response.send({error: false, codigo: 200, mensaje: 'Libro añadido'});
     } catch (error){
         console.error('Error al añadir el libro:', error);
@@ -54,11 +53,10 @@ async function postBooks(request, response) {
 }
 
 async function putBooks(request, response) {
-    const userId = request.params.id_user;
     const bookId = request.params.id_book;
     const updatedBook = request.body;
     try{
-        await pool.query('UPDATE book SET ? WHERE id_book = ? AND id_user = ?', [updatedBook, bookId, userId]);
+        await pool.query('UPDATE book SET ? WHERE id_book = ?', [updatedBook, bookId]);
         response.send({error:false, codigo: 200, mensaje: 'Libro actualizado'});
     } catch (error){
         console.error('Error al actualizar el libro:', error)
@@ -67,10 +65,9 @@ async function putBooks(request, response) {
 
 
 async function deleteBooks(request, response) {
-    const userId = request.params.id_user; 
     const bookId = request.params.id_book;
     try {
-        await pool.query('DELETE FROM book WHERE id_book = ? AND id_user = ?', [bookId, userId]);
+        await pool.query('DELETE FROM book WHERE id_book = ?', [bookId]);
         response.send(true);
     } catch (error) {
         console.error('Error al eliminar el libro:', error);
