@@ -53,10 +53,10 @@ async function postBooks(request, response) {
 }
 
 async function putBooks(request, response) {
-    const bookId = request.params.id_book;
+    // const bookId = request.params.id_book;
     const updatedBook = request.body;
     try{
-        await pool.query('UPDATE book SET ? WHERE id_book = ?', [updatedBook, bookId]);
+        await pool.query('UPDATE book SET ? WHERE id_user = ? AND id_book = ?', [updatedBook, request.body.id_user, request.body.id_book]);
         response.send({error:false, codigo: 200, mensaje: 'Libro actualizado'});
     } catch (error){
         console.error('Error al actualizar el libro:', error)

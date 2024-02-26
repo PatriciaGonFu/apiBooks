@@ -8,7 +8,7 @@ router.get("/books/:id_user", booksCtrl.getBooks);
 
 router.post("/books", booksCtrl.postBooks);
 
-router.put("/books/:id_book", booksCtrl.putBooks);
+router.put("/books", booksCtrl.putBooks);
 
 router.delete("/books/:id_book", booksCtrl.deleteBooks);
 
